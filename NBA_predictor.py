@@ -110,12 +110,6 @@ def main():
         j+=1
         k+=1
 
-    for element in WC_top8:
-        print(WC_teams_ids[element])
-    
-    for element in EC_top8:
-        print(EC_teams_ids[element])
-
     n_estimators = random.randint(10, 100) 
     min_samples_split = random.randint(2, 20)
     rf = RandomForestClassifier(n_estimators=n_estimators, min_samples_split=min_samples_split)
@@ -176,24 +170,36 @@ def main():
     Winner = match(WC_winner, EC_winner,df_rolling,predictors + newColumns)
 
 
-    #Print results
-    for id in WC_top4:
-        print(WC_teams_ids[id])
-    for id in EC_top4:
-        print(EC_teams_ids[id])
+    with open('results.txt', 'a') as f:
+        #Print results
+        for element in WC_top8:
+            f.write(WC_teams_ids[element])
+            f.write('\n')
+        for element in EC_top8:
+            f.write(EC_teams_ids[element])
+            f.write('\n')
+        for id in WC_top4:
+            f.write(WC_teams_ids[id])
+            f.write('\n')
+        for id in EC_top4:
+            f.write(EC_teams_ids[id])
+            f.write('\n')
+        for id in WC_top2:
+            f.write(WC_teams_ids[id])
+            f.write('\n')
+        for id in EC_top2:
+            f.write(EC_teams_ids[id])
+            f.write('\n')
 
-    for id in WC_top2:
-        print(WC_teams_ids[id])
-    for id in EC_top2:
-        print(EC_teams_ids[id])
+        f.write(WC_teams_ids[WC_winner])
+        f.write('\n')
+        f.write(EC_teams_ids[EC_winner])
+        f.write('\n')
 
-    print(WC_teams_ids[WC_winner])
-    print(EC_teams_ids[EC_winner])
-
-    if Winner in WC_team_ID:
-        print(WC_teams_ids[Winner])
-    else:
-        print(EC_teams_ids[Winner])
+        if Winner in WC_team_ID:
+            f.write(WC_teams_ids[Winner])
+        else:
+            f.write(EC_teams_ids[Winner])
 
 
 
